@@ -19,10 +19,8 @@ public class UiExtension implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) {
-        // получаем "обычный" драйвер через твою фабрику
         WebDriver baseDriver = new WebDriverFactory().getDriver();
 
-        // оборачиваем его в EventFiringDecorator с нашим listener
         driver = new EventFiringDecorator(new HighlightListener()).decorate(baseDriver);
 
         injector = Guice.createInjector(

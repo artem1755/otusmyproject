@@ -26,6 +26,7 @@ public class CourseItem {
     public CourseDetailPage gotoDetailPage(){
         if (waiter.waitForElementClickable(root.findElement(titleLocator))) {
             root.findElement(titleLocator).click();
+//            UiActions.click(driver, root.findElement(titleLocator));
         } else {
             throw new RuntimeException("Элемент с заголовком курса не кликабелен");
         }

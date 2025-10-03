@@ -32,4 +32,8 @@ public class PropertyLoader {
         }
         return Integer.parseInt(timeout);
     }
+
+    public static String getBrowserName() {
+        return properties.getProperty("browser.name");
+    }
 }
