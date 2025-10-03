@@ -2,6 +2,7 @@ package com.aero.tests;
 
 import com.aero.jupiter.extensions.UiExtension;
 import com.aero.pages.CoursesPage;
+import com.aero.pages.MainPage;
 import com.google.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +21,9 @@ public class CoursesPageTest {
     @Inject
     CoursesPage coursesPage;
 
+    @Inject
+    MainPage mainPage;
+
     @Test
     void checkThatCourseIsAvailable() {
         String courseTitle = "Архитектура и шаблоны проектирования";
@@ -28,5 +32,19 @@ public class CoursesPageTest {
                 .getCourseItemByTitle(courseTitle)
                 .gotoDetailPage()
                 .checkThatPageIsCorrect("Архитектура и шаблоны проектирования");
+    }
+
+    @Test
+    void test(){
+        mainPage
+                .open()
+                .header()
+                .selectRandomCategory();
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

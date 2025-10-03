@@ -3,13 +3,51 @@ package com.aero.components;
 
 import com.aero.pages.CoursesPage;
 import com.aero.utils.UiActions;
+import com.aero.waiters.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 import java.util.Random;
 
 public class HeaderComponent {
+    private final WebDriver driver;
+
+    private final By trainingMenu = By.xpath("//span[@title='Обучение']/..");
+    private final By categoryItems = By.xpath("//p[contains(text(),'Все курсы')]/../div/a");
+
+    public HeaderComponent(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public CoursesPage selectRandomCategory() {
+        Waiter waiter = new Waiter(driver);
+
+        if (!waiter.waitForElementVisible(trainingMenu)) {
+            throw new RuntimeException("Меню 'Обучение' не найдено");
+        }
+
+        WebElement training = driver.findElement(trainingMenu);
+        UiActions.hover(driver, training);
+
+        if (!waiter.waitForCondition(ExpectedConditions.visibilityOfAllElementsLocatedBy(categoryItems))) {
+            throw new RuntimeException("Категории в меню 'Обучение' не появились");
+        }
+
+        List<WebElement> categories = driver.findElements(categoryItems);
+        WebElement randomCategory = categories.get(new Random().nextInt(categories.size()));
+        String selectedCategory = randomCategory.getText().trim();
+
+        if (!waiter.waitForElementClickable(randomCategory)) {
+            throw new RuntimeException("Категория '" + selectedCategory + "' не кликабельна");
+        }
+
+        UiActions.click(driver, randomCategory);
+
+        return new CoursesPage(driver);
+    }
+
 
 }

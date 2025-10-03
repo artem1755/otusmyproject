@@ -3,6 +3,7 @@ package com.aero.jupiter.extensions;
 import com.aero.factory.WebDriverFactory;
 import com.aero.listener.HighlightListener;
 import com.aero.modules.DriverModule;
+import com.aero.modules.MainPageGuiceModule;
 import com.aero.modules.PageGuiceModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -25,7 +26,8 @@ public class UiExtension implements BeforeEachCallback, AfterEachCallback {
 
         injector = Guice.createInjector(
                 new DriverModule(driver),
-                new PageGuiceModule(driver)
+                new PageGuiceModule(driver),
+                new MainPageGuiceModule(driver)
         );
 
         injector.injectMembers(context.getTestInstance().get());
