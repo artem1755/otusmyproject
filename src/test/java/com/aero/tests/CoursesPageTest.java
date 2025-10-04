@@ -29,22 +29,22 @@ public class CoursesPageTest {
         String courseTitle = "Архитектура и шаблоны проектирования";
 
         coursesPage.open()
-                .getCourseItemByTitle(courseTitle)
+                .getCourseItemsByTitle(courseTitle)
                 .gotoDetailPage()
-                .checkThatPageIsCorrect("Архитектура и шаблоны проектирования");
+                .checkThatPageIsCorrect(courseTitle);
+    }
+
+    @Test
+    void checkThatTheRandomCategoryWillOpenCorrectly() {
+        String expectedCategory = mainPage.open()
+                .header()
+                .selectRandomCategory();
+
+        coursesPage.checkThatTheDesiredCategoryIsOpened(expectedCategory);
     }
 
     @Test
     void test(){
-        mainPage
-                .open()
-                .header()
-                .selectRandomCategory();
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        coursesPage.open();
     }
 }

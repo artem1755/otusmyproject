@@ -2,6 +2,7 @@ package com.aero.components;
 
 
 import com.aero.pages.CoursesPage;
+import com.aero.utils.StringUtils;
 import com.aero.utils.UiActions;
 import com.aero.waiters.Waiter;
 import org.openqa.selenium.By;
@@ -22,7 +23,7 @@ public class HeaderComponent {
         this.driver = driver;
     }
 
-    public CoursesPage selectRandomCategory() {
+    public String selectRandomCategory() {
         Waiter waiter = new Waiter(driver);
 
         if (!waiter.waitForElementVisible(trainingMenu)) {
@@ -46,7 +47,8 @@ public class HeaderComponent {
 
         UiActions.click(driver, randomCategory);
 
-        return new CoursesPage(driver);
+//        return new CoursesPage(driver);
+        return StringUtils.removeBrackets(selectedCategory);
     }
 
 

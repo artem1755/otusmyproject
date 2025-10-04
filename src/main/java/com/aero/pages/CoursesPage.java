@@ -33,7 +33,9 @@ public class CoursesPage {
     @FindBy(xpath = "//section[@class='sc-o4bnil-0 riKpM']/div[2]//a")
     List<WebElement> coursesItems;
 
-    public CourseItem getCourseItemByTitle(String title) {
+    By activeCategories = By.xpath("//span[contains(text(),'Свернуть')]/..//div[@value='true']//label");
+
+    public CourseItem getCourseItemsByTitle(String title) {
        return coursesItems.stream()
                 .map(elem -> new CourseItem(elem, driver))
                 .filter(item -> item.getTitle().equals(title))
@@ -41,19 +43,20 @@ public class CoursesPage {
                 .orElseThrow(() -> new RuntimeException("Курс с названием " + title + " не найден"));
     }
 
-    public List<String> getActiveCategories(){
-      List<WebElement> activeCategories =  driver.findElements(By.xpath("//span[contains(text(),'Свернуть')]/../div//label[@value='true']"));
-        List<String> labelsText = new ArrayList<>();
-        for (WebElement el : activeCategories) {
-            labelsText.add(el.getText().trim());
+    public List<String> getActiveCategories() {
+        if (!new Waiter(driver).waitForElementVisible(activeCategories)) {
+            throw new RuntimeException("Не дождались активных категорий");
         }
-        return labelsText;
+
+        return driver.findElements(activeCategories).stream()
+                .map(el -> el.getText().trim())
+                .toList();
     }
 
     public void checkThatTheDesiredCategoryIsOpened(String categoryName){
-        List<String> title = getActiveCategories();
-        Assertions.assertEquals(1,getActiveCategories().size());
-        Assertions.assertEquals(categoryName,getActiveCategories().getFirst());
+        List<String> titles = getActiveCategories();
+        Assertions.assertEquals(1,titles.size());
+        Assertions.assertEquals(categoryName,titles.getFirst());
     }
 
 }
