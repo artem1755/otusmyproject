@@ -98,27 +98,28 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>com.github.spotbugs</groupId>-->
-<!--                <artifactId>spotbugs</artifactId>-->
-<!--                <version>4.9.3</version>-->
-<!--                <configuration>-->
-<!--                    <effort>Max</effort>-->
-<!--                    <threshold>Low</threshold>-->
-<!--                    <xmlOutput>true</xmlOutput>-->
-<!--                    <includeTests>true</includeTests>-->
-<!--                    <omitVisitors>UnreadFields</omitVisitors>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>analyze-compile</id>-->
-<!--                        <phase>compile</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>check</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.9.6.0</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <xmlOutput>true</xmlOutput>
+                    <includeTests>true</includeTests>
+                    <omitVisitors>UnreadFields</omitVisitors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>analyze-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>
