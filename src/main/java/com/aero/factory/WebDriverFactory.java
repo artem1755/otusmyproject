@@ -9,13 +9,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class WebDriverFactory {
-    private String browserName = PropertyLoader.getBrowserName();
+  private String browserName = PropertyLoader.getBrowserName();
 
-    public WebDriver getDriver(){
-        switch (browserName){
-            case "chrome":
-                return new ChromeDriver((ChromeOptions) new ChromeSettings().getSettings(new DesiredCapabilities()));
-        }
-        throw new BrowserNotSupportException();
+  public WebDriver getDriver() {
+    switch (browserName) {
+      case "chrome":
+        return new ChromeDriver((ChromeOptions) new ChromeSettings().getSettings(new DesiredCapabilities()));
     }
+    throw new BrowserNotSupportException();
+  }
 }

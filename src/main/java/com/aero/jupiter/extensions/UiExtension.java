@@ -2,6 +2,7 @@ package com.aero.jupiter.extensions;
 
 import com.aero.factory.WebDriverFactory;
 import com.aero.listener.HighlightListener;
+import com.aero.modules.DetailPageGuiceModule;
 import com.aero.modules.DriverModule;
 import com.aero.modules.MainPageGuiceModule;
 import com.aero.modules.PageGuiceModule;
@@ -15,28 +16,29 @@ import org.openqa.selenium.support.events.EventFiringDecorator;
 
 public class UiExtension implements BeforeEachCallback, AfterEachCallback {
 
-    private Injector injector;
-    private WebDriver driver;
+  private Injector injector;
+  private WebDriver driver;
 
-    @Override
-    public void beforeEach(ExtensionContext context) {
-        WebDriver baseDriver = new WebDriverFactory().getDriver();
+  @Override
+  public void beforeEach(ExtensionContext context) {
+    WebDriver baseDriver = new WebDriverFactory().getDriver();
 
-        driver = new EventFiringDecorator(new HighlightListener()).decorate(baseDriver);
+    driver = new EventFiringDecorator(new HighlightListener()).decorate(baseDriver);
 
-        injector = Guice.createInjector(
-                new DriverModule(driver),
-                new PageGuiceModule(driver),
-                new MainPageGuiceModule(driver)
-        );
+    injector = Guice.createInjector(
+            new DriverModule(driver),
+            new PageGuiceModule(driver),
+            new DetailPageGuiceModule(driver),
+            new MainPageGuiceModule(driver)
+    );
 
-        injector.injectMembers(context.getTestInstance().get());
+    injector.injectMembers(context.getTestInstance().get());
+  }
+
+  @Override
+  public void afterEach(ExtensionContext context) {
+    if (driver != null) {
+      driver.quit();
     }
-
-    @Override
-    public void afterEach(ExtensionContext context) {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+  }
 }

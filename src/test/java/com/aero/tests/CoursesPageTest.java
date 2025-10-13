@@ -1,50 +1,66 @@
 package com.aero.tests;
 
 import com.aero.jupiter.extensions.UiExtension;
+import com.aero.models.CourseDTO;
+import com.aero.pages.CourseDetailPage;
 import com.aero.pages.CoursesPage;
 import com.aero.pages.MainPage;
 import com.google.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @ExtendWith(UiExtension.class)
 public class CoursesPageTest {
 
-//    todo:
-//     1) Подключить линтеры - спотбагс и чекстайл,
-//     2) внедрить di +
-//     3) Отдельный класс вейтер +
-//     4) Написать тесты
-//     5) загрузка пропертей из файла
-//     6) Использовать Actions
+// todo:
+//  1) Подключить линтеры - спотбагс и чекстайл,
+//  2) внедрить di +
+//  3) Отдельный класс вейтер +
+//  4) Написать тесты
+//  5) загрузка пропертей из файла
+//  6) Использовать Actions
 
-    @Inject
-    CoursesPage coursesPage;
+  @Inject
+  CoursesPage coursesPage;
 
-    @Inject
-    MainPage mainPage;
+  @Inject
+  MainPage mainPage;
 
-    @Test
-    void checkThatCourseIsAvailable() {
-        String courseTitle = "Архитектура и шаблоны проектирования";
+  @Inject
+  CourseDetailPage detailPage;
 
-        coursesPage.open()
-                .getCourseItemsByTitle(courseTitle)
-                .gotoDetailPage()
-                .checkThatPageIsCorrect(courseTitle);
-    }
+  @Test
+  void checkThatCourseIsAvailable() {
+    String courseTitle = "Архитектура и шаблоны проектирования";
 
-    @Test
-    void checkThatTheRandomCategoryWillOpenCorrectly() {
-        String expectedCategory = mainPage.open()
-                .header()
-                .selectRandomCategory();
+    coursesPage.open()
+            .getCourseItemsByTitle(courseTitle)
+            .gotoDetailPage()
+            .checkThatPageIsCorrect(courseTitle);
+  }
 
-        coursesPage.checkThatTheDesiredCategoryIsOpened(expectedCategory);
-    }
+  @Test
+  void checkThatTheRandomCategoryWillOpenCorrectly() {
+    String expectedCategory = mainPage.open()
+            .header()
+            .selectRandomCategory();
 
-    @Test
-    void test(){
-        coursesPage.open();
-    }
+    coursesPage.checkThatTheDesiredCategoryIsOpened(expectedCategory);
+  }
+
+  @Test
+  void checkEarliestAndLatestCourses() {
+    coursesPage.open();
+    List<CourseDTO> earliestCourses = coursesPage.getAllEarliestCourses();
+    List<CourseDTO> latestCourses = coursesPage.getAllLatestCourses();
+
+    List<CourseDTO> allCourses = Stream
+            .concat(earliestCourses.stream(), latestCourses.stream())
+            .collect(Collectors.toList());
+
+    detailPage.verifyCourseDataWithJsoup(allCourses);
+  }
 }
