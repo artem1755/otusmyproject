@@ -43,15 +43,6 @@ public class CoursesPageTest {
   }
 
   @Test
-  void checkThatTheRandomCategoryWillOpenCorrectly() {
-    String expectedCategory = mainPage.open()
-            .header()
-            .selectRandomCategory();
-
-    coursesPage.checkThatTheDesiredCategoryIsOpened(expectedCategory);
-  }
-
-  @Test
   void checkEarliestAndLatestCourses() {
     coursesPage.open();
     List<CourseDTO> earliestCourses = coursesPage.getAllEarliestCourses();
@@ -62,5 +53,14 @@ public class CoursesPageTest {
             .collect(Collectors.toList());
 
     detailPage.verifyCourseDataWithJsoup(allCourses);
+  }
+
+  @Test
+  void checkThatTheRandomCategoryWillOpenCorrectly() {
+    String expectedCategory = mainPage.open()
+            .header()
+            .selectRandomCategory();
+
+    coursesPage.checkThatTheDesiredCategoryIsOpened(expectedCategory);
   }
 }

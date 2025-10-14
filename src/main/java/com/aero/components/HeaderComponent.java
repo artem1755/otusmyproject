@@ -44,7 +44,6 @@ public class HeaderComponent {
 
     UiActions.click(driver, randomCategory);
 
-    // return new CoursesPage(driver);
     return StringUtils.removeBrackets(selectedCategory);
   }
 
