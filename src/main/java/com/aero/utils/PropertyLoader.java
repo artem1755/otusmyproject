@@ -13,7 +13,7 @@ public class PropertyLoader {
       if (input == null) {
         throw new RuntimeException("Не найден файл config.properties в classpath");
       }
-      properties.load(input);
+      PROPERTIES.load(input);
     } catch (IOException e) {
       throw new RuntimeException("Ошибка при загрузке config.properties", e);
     }
@@ -23,11 +23,11 @@ public class PropertyLoader {
   }
 
   public static String getBaseUrl() {
-    return properties.getProperty("base.url");
+    return PROPERTIES.getProperty("base.url");
   }
 
   public static int getBaseTimeout() {
-    String timeout = properties.getProperty("base.timeout");
+    String timeout = PROPERTIES.getProperty("base.timeout");
     if (timeout == null) {
       throw new RuntimeException("base.timeout не задан в config.properties");
     }
@@ -35,6 +35,6 @@ public class PropertyLoader {
   }
 
   public static String getBrowserName() {
-    return properties.getProperty("browser.name");
+    return PROPERTIES.getProperty("browser.name");
   }
 }
