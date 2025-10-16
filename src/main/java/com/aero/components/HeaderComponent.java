@@ -3,6 +3,7 @@ package com.aero.components;
 import com.aero.utils.StringUtils;
 import com.aero.utils.UiActions;
 import com.aero.waiters.Waiter;
+import com.google.inject.Inject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

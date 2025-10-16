@@ -65,17 +65,16 @@ public class CoursesPage {
   }
 
   public List<CourseDTO> getAllEarliestCourses() {
-    Waiter waiter = new Waiter(driver);
-    waiter.waitForElementVisible(By.xpath("//section[@class='sc-o4bnil-0 riKpM']/div[2]//a"));
-
     List<CourseItem> allCourses = getAllCourses();
 
     CourseItem minCourse = allCourses.stream()
+            .filter(c -> !c.getStartDateString().equals("О дате старта будет объявлено позже"))
             .reduce((c1, c2) -> c1.getStartDate().isBefore(c2.getStartDate()) ? c1 : c2)
             .orElseThrow();
 
     LocalDate minDate = minCourse.getStartDate();
     return allCourses.stream()
+            .filter(c -> !c.getStartDateString().equals("О дате старта будет объявлено позже"))
             .filter(c -> c.getStartDate().equals(minDate))
             .map(elem -> new CourseDTO(
                             elem.getTitle(),
@@ -87,17 +86,16 @@ public class CoursesPage {
   }
 
   public List<CourseDTO> getAllLatestCourses() {
-    Waiter waiter = new Waiter(driver);
-    waiter.waitForElementVisible(By.xpath("//section[@class='sc-o4bnil-0 riKpM']/div[2]//a"));
-
     List<CourseItem> allCourses = getAllCourses();
 
     CourseItem maxCourse = allCourses.stream()
+            .filter(c -> !c.getStartDateString().equals("О дате старта будет объявлено позже"))
             .reduce((c1, c2) -> c1.getStartDate().isAfter(c2.getStartDate()) ? c1 : c2)
             .orElseThrow();
 
     LocalDate maxDate = maxCourse.getStartDate();
     return allCourses.stream()
+            .filter(c -> !c.getStartDateString().equals("О дате старта будет объявлено позже"))
             .filter(c -> c.getStartDate().equals(maxDate))
             .map(elem -> new CourseDTO(
                             elem.getTitle(),
@@ -113,6 +111,4 @@ public class CoursesPage {
     Assertions.assertEquals(1, titles.size());
     Assertions.assertEquals(categoryName, titles.getFirst());
   }
-
-
 }

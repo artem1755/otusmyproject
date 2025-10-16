@@ -15,14 +15,6 @@ import java.util.stream.Stream;
 @ExtendWith(UiExtension.class)
 public class CoursesPageTest {
 
-// todo:
-//  1) Подключить линтеры - спотбагс и чекстайл,
-//  2) внедрить di +
-//  3) Отдельный класс вейтер +
-//  4) Написать тесты
-//  5) загрузка пропертей из файла
-//  6) Использовать Actions
-
   @Inject
   CoursesPage coursesPage;
 
@@ -34,7 +26,7 @@ public class CoursesPageTest {
 
   @Test
   void checkThatCourseIsAvailable() {
-    String courseTitle = "Архитектура и шаблоны проектирования";
+    String courseTitle = "Delivery Manager";
 
     coursesPage.open()
             .getCourseItemsByTitle(courseTitle)
