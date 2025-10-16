@@ -2,10 +2,7 @@ package com.aero.jupiter.extensions;
 
 import com.aero.factory.WebDriverFactory;
 import com.aero.listener.HighlightListener;
-import com.aero.modules.DetailPageGuiceModule;
-import com.aero.modules.DriverModule;
-import com.aero.modules.MainPageGuiceModule;
-import com.aero.modules.PageGuiceModule;
+import com.aero.modules.*;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.junit.jupiter.api.extension.AfterEachCallback;
@@ -29,6 +26,7 @@ public class UiExtension implements BeforeEachCallback, AfterEachCallback {
             new DriverModule(driver),
             new PageGuiceModule(driver),
             new DetailPageGuiceModule(driver),
+            new HeaderGuiceModul(driver),
             new MainPageGuiceModule(driver)
     );
 

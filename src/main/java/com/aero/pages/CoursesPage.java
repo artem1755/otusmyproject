@@ -6,6 +6,7 @@ import com.aero.components.CourseItem;
 import com.aero.models.CourseDTO;
 import com.aero.utils.PropertyLoader;
 import com.aero.waiters.Waiter;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressFBWarnings(
+      value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
+      justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
+)
 public class CoursesPage {
   WebDriver driver;
   WebDriverWait wait;

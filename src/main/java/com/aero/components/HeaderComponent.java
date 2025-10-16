@@ -1,9 +1,11 @@
 package com.aero.components;
 
+import com.aero.exceptions.ElementNotClickableException;
 import com.aero.utils.StringUtils;
 import com.aero.utils.UiActions;
 import com.aero.waiters.Waiter;
 import com.google.inject.Inject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,15 +13,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.Random;
 
+@SuppressFBWarnings(
+      value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
+      justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
+)
 public class HeaderComponent {
   private final WebDriver driver;
-
-  private final By trainingMenu = By.xpath("//span[@title='Обучение']/..");
-  private final By categoryItems = By.xpath("//p[contains(text(),'Все курсы')]/../div/a");
+  private static final Random RANDOM = new Random();
 
   public HeaderComponent(WebDriver driver) {
     this.driver = driver;
   }
+
+  private final By trainingMenu = By.xpath("//span[@title='Обучение']/..");
+  private final By categoryItems = By.xpath("//p[contains(text(),'Все курсы')]/../div/a");
 
   public String selectRandomCategory() {
     Waiter waiter = new Waiter(driver);
@@ -36,7 +43,7 @@ public class HeaderComponent {
     }
 
     List<WebElement> categories = driver.findElements(categoryItems);
-    WebElement randomCategory = categories.get(new Random().nextInt(categories.size()));
+    WebElement randomCategory = categories.get(RANDOM.nextInt(categories.size()));
     String selectedCategory = randomCategory.getText().trim();
 
     if (!waiter.waitForElementClickable(randomCategory)) {
@@ -47,6 +54,5 @@ public class HeaderComponent {
 
     return StringUtils.removeBrackets(selectedCategory);
   }
-
 
 }

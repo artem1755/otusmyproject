@@ -4,6 +4,7 @@ import static com.aero.utils.StringUtils.formatToDayMonth;
 
 import com.aero.models.CourseDTO;
 import com.aero.utils.PropertyLoader;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -40,6 +41,10 @@ public class CourseDetailPage {
   /**
    * Проверяет через Jsoup, что на странице курса правильные данные
    */
+  @SuppressFBWarnings(
+      value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
+      justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
+  )
   public void verifyCourseDataWithJsoup(List<CourseDTO> courses) {
     for (CourseDTO course : courses) {
       try {

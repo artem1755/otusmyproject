@@ -1,14 +1,20 @@
 package com.aero.utils;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+@SuppressFBWarnings(
+        value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
+        justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
+)
 public final class StringUtils {
 
   private StringUtils() {
   }
+
 
   public static String removeBrackets(String text) {
     if (text == null) {

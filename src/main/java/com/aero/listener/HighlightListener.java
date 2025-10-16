@@ -10,8 +10,12 @@ public class HighlightListener implements WebDriverListener {
 
   @Override
   public void beforeClick(WebElement element) {
-    WebDriver driver = ((WrapsDriver) element).getWrappedDriver();
-    highlightElement(driver, element);
+    if (element instanceof WrapsDriver) {
+      WebDriver driver = ((WrapsDriver) element).getWrappedDriver();
+      highlightElement(driver, element);
+    } else {
+      throw new IllegalArgumentException("Element does not implement WrapsDriver: " + element.getClass().getName());
+    }
   }
 
   private void highlightElement(WebDriver driver, WebElement element) {

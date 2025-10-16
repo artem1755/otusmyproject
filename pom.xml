@@ -22,6 +22,7 @@
         <guice.version>7.0.0</guice.version>
         <jsoup.version>1.18.1</jsoup.version>
         <lombok.version>1.18.38</lombok.version>
+        <spotbugs.annotations.version>4.9.6</spotbugs.annotations.version>
     </properties>
 
     <dependencies>
@@ -54,6 +55,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>${spotbugs.annotations.version}</version>
         </dependency>
     </dependencies>
 
