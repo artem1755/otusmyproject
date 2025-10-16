@@ -1,7 +1,5 @@
 package com.aero.pages;
 
-import static com.aero.utils.StringUtils.extractPath;
-
 import com.aero.components.CourseItem;
 import com.aero.models.CourseDTO;
 import com.aero.utils.PropertyLoader;
@@ -14,18 +12,24 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.aero.utils.StringUtils.extractPath;
+
 @SuppressFBWarnings(
-      value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
-      justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
+        value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
+        justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
 )
 public class CoursesPage {
   WebDriver driver;
   WebDriverWait wait;
+  @FindBy(xpath = "//section[@class='sc-o4bnil-0 riKpM']/div[2]//a")
+  List<WebElement> coursesItems;
+  By activeCategories = By.xpath("//span[contains(text(),'Свернуть')]/..//div[@value='true']//label");
 
   public CoursesPage(WebDriver driver) {
     this.driver = driver;
@@ -37,11 +41,6 @@ public class CoursesPage {
     driver.get(PropertyLoader.getBaseUrl() + "/catalog/courses");
     return this;
   }
-
-  @FindBy(xpath = "//section[@class='sc-o4bnil-0 riKpM']/div[2]//a")
-  List<WebElement> coursesItems;
-
-  By activeCategories = By.xpath("//span[contains(text(),'Свернуть')]/..//div[@value='true']//label");
 
   public CourseItem getCourseItemsByTitle(String title) {
     return coursesItems.stream()

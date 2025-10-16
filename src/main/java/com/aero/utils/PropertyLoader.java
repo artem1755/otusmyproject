@@ -1,13 +1,14 @@
 package com.aero.utils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 @SuppressFBWarnings(
-      value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
-      justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
+        value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
+        justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
 )
 public class PropertyLoader {
   private static final Properties PROPERTIES = new Properties();

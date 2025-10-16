@@ -8,6 +8,7 @@ import com.aero.pages.MainPage;
 import com.google.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

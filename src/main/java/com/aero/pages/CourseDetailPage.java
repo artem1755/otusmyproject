@@ -1,7 +1,5 @@
 package com.aero.pages;
 
-import static com.aero.utils.StringUtils.formatToDayMonth;
-
 import com.aero.models.CourseDTO;
 import com.aero.utils.PropertyLoader;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -15,8 +13,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.List;
+
+import static com.aero.utils.StringUtils.formatToDayMonth;
 
 public class CourseDetailPage {
 
@@ -42,8 +43,8 @@ public class CourseDetailPage {
    * Проверяет через Jsoup, что на странице курса правильные данные
    */
   @SuppressFBWarnings(
-      value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
-      justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
+          value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
+          justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
   )
   public void verifyCourseDataWithJsoup(List<CourseDTO> courses) {
     for (CourseDTO course : courses) {
