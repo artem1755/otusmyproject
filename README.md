@@ -1,4 +1,4 @@
-# 🧪 UI автотесты проекта Aero
+# 🧪 UI автотесты проекта Otus
 
 [![Java](https://img.shields.io/badge/Java-21-blue)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 [![Maven](https://img.shields.io/badge/Maven-3.9.0-blue)](https://maven.apache.org/)
