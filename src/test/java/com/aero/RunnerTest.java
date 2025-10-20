@@ -1,13 +1,15 @@
 package com.aero;
 
-import static io.cucumber.core.options.Constants.GLUE_PROPERTY_NAME;
-
+import io.cucumber.junit.platform.engine.Cucumber;
 import org.junit.platform.suite.api.*;
+
+import static io.cucumber.core.options.Constants.GLUE_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.aero.steps")
+@IncludeTags({"courses_block"})
 @SelectClasspathResource("otus")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "otus")
-@IncludeTags({"test"})
+@Cucumber
 public class RunnerTest {
 }

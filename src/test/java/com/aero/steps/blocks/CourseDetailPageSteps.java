@@ -1,4 +1,4 @@
-package com.aero.steps;
+package com.aero.steps.blocks;
 
 public class CourseDetailPageSteps {
 }
