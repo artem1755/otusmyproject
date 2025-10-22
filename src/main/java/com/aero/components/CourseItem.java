@@ -1,23 +1,22 @@
 package com.aero.components;
 
+import static com.aero.utils.StringUtils.extractDatePart;
+import static com.aero.utils.StringUtils.parseDate;
+
 import com.aero.pages.CourseDetailPage;
 import com.aero.waiters.Waiter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import static com.aero.utils.StringUtils.extractDatePart;
-import static com.aero.utils.StringUtils.parseDate;
-
 @SuppressFBWarnings(
         value = {
-                "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
-                "EI_EXPOSE_REP2"
+          "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
+          "EI_EXPOSE_REP2"
         },
         justification = "RuntimeException выбрасывается намеренно, WebElement хранится безопасно для тестов"
 )
@@ -27,6 +26,7 @@ public class CourseItem {
   private final By titleLocator = By.cssSelector("h6 > div");
   private final By date = By.xpath("div[2]/div/div");
   Waiter waiter;
+
   public CourseItem(WebElement root, WebDriver driver) {
     this.driver = driver;
     this.root = root;

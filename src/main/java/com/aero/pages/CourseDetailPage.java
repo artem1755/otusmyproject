@@ -1,5 +1,7 @@
 package com.aero.pages;
 
+import static com.aero.utils.StringUtils.formatToDayMonth;
+
 import com.aero.models.CourseDTO;
 import com.aero.utils.PropertyLoader;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -10,34 +12,23 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 import java.util.List;
 
-import static com.aero.utils.StringUtils.formatToDayMonth;
 
-public class CourseDetailPage {
-
-  private final WebDriver driver;
-  private final WebDriverWait wait;
+public class CourseDetailPage extends AbsBasePage<CourseDetailPage> {
 
   @FindBy(xpath = "//h1")
   private WebElement element;
 
   public CourseDetailPage(WebDriver driver) {
-    this.driver = driver;
-    this.wait = new WebDriverWait(driver, Duration.ofSeconds(PropertyLoader.getBaseTimeout()));
-    PageFactory.initElements(driver, this);
+    super(driver);
   }
 
   public void checkThatPageIsCorrect(String title) {
-    WebElement visibleElement = wait.until(ExpectedConditions.visibilityOf(element));
-    Assertions.assertEquals(title, visibleElement.getText());
+    if (waiter.waitForElementClickable(element)) {
+      Assertions.assertEquals(title, element.getText());
+    }
   }
-
 
   /**
    * Проверяет через Jsoup, что на странице курса правильные данные

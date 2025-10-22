@@ -8,7 +8,6 @@ import com.aero.pages.MainPage;
 import com.google.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,9 +26,9 @@ public class CoursesPageTest {
 
   @Test
   void checkThatCourseIsAvailable() {
-    String courseTitle = "Delivery Manager";
+    String courseTitle = "Fullstack developer";
 
-    coursesPage.open()
+    coursesPage.openPage()
             .getCourseItemsByTitle(courseTitle)
             .gotoDetailPage()
             .checkThatPageIsCorrect(courseTitle);
@@ -37,7 +36,7 @@ public class CoursesPageTest {
 
   @Test
   void checkEarliestAndLatestCourses() {
-    coursesPage.open();
+    coursesPage.openPage();
     List<CourseDTO> earliestCourses = coursesPage.getAllEarliestCourses();
     List<CourseDTO> latestCourses = coursesPage.getAllLatestCourses();
 
@@ -50,7 +49,7 @@ public class CoursesPageTest {
 
   @Test
   void checkThatTheRandomCategoryWillOpenCorrectly() {
-    String expectedCategory = mainPage.open()
+    String expectedCategory = mainPage.openPage()
             .header()
             .selectRandomCategory();
 

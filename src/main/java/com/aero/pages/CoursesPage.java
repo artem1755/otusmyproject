@@ -1,8 +1,10 @@
 package com.aero.pages;
 
+import static com.aero.utils.StringUtils.extractPath;
+
+import com.aero.annotations.Path;
 import com.aero.components.CourseItem;
 import com.aero.models.CourseDTO;
-import com.aero.utils.PropertyLoader;
 import com.aero.waiters.Waiter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Assertions;
@@ -10,37 +12,26 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.aero.utils.StringUtils.extractPath;
 
 @SuppressFBWarnings(
         value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
         justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
 )
-public class CoursesPage {
-  WebDriver driver;
-  WebDriverWait wait;
+@Path("/catalog/courses")
+public class CoursesPage extends AbsBasePage<CoursesPage> {
+
   @FindBy(xpath = "//section[@class='sc-o4bnil-0 riKpM']/div[2]//a")
   List<WebElement> coursesItems;
+
   By activeCategories = By.xpath("//span[contains(text(),'Свернуть')]/..//div[@value='true']//label");
 
   public CoursesPage(WebDriver driver) {
-    this.driver = driver;
-    PageFactory.initElements(driver, this);
-    this.wait = new WebDriverWait(driver, Duration.ofSeconds(PropertyLoader.getBaseTimeout()));
+    super(driver);
   }
 
-  public CoursesPage open() {
-    driver.get(PropertyLoader.getBaseUrl() + "/catalog/courses");
-    return this;
-  }
 
   public CourseItem getCourseItemsByTitle(String title) {
     return coursesItems.stream()
@@ -61,7 +52,6 @@ public class CoursesPage {
   }
 
   public List<CourseItem> getAllCourses() {
-    Waiter waiter = new Waiter(driver);
     waiter.waitForElementVisible(By.xpath("//section[@class='sc-o4bnil-0 riKpM']/div[2]//a"));
     return coursesItems.stream()
             .map(elem -> new CourseItem(elem, driver))
