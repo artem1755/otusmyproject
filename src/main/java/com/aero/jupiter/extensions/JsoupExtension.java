@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolver;
-
 import java.util.Optional;
 
 public class JsoupExtension implements BeforeEachCallback, ParameterResolver {
@@ -41,7 +40,7 @@ public class JsoupExtension implements BeforeEachCallback, ParameterResolver {
   }
 
   @Override
-  public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
+  public String resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
     return pageText;
   }
 }
