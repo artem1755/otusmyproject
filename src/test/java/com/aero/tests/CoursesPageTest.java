@@ -1,5 +1,6 @@
 package com.aero.tests;
 
+import com.aero.jupiter.anno.HtmlFromJsoup;
 import com.aero.jupiter.extensions.UiExtension;
 import com.aero.models.CourseDTO;
 import com.aero.pages.CourseDetailPage;
@@ -25,8 +26,12 @@ public class CoursesPageTest {
   CourseDetailPage detailPage;
 
   @Test
-  void checkThatCourseIsAvailable() {
-    String courseTitle = "Fullstack developer";
+  @HtmlFromJsoup(
+          url = "/catalog/courses/",
+          cssQuery = "h6.sc-1x9oq14-0.sc-1yg5ro0-1.enpOeQ.frUeNO.sc-hrqzy3-0.cYNMRM.sc-1yg5ro0-0.iPwMHk > div.sc-hrqzy3-1.jEGzDf"
+  )
+  void checkThatCourseIsAvailable(String course) {
+    String courseTitle = course;
 
     coursesPage.openPage()
             .getCourseItemsByTitle(courseTitle)
