@@ -11,7 +11,6 @@ public abstract class AbsCommon<T extends AbsCommon> {
   public AbsCommon(WebDriver driver) {
     this.driver = driver;
     this.waiter = new Waiter(driver).getWaitDriver();
-    //  this.actionUtils = new ActionUtils(driver);
     PageFactory.initElements(driver, this);
   }
 

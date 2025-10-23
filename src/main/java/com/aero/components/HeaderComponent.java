@@ -15,19 +15,17 @@ import java.util.Random;
         value = "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
         justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
 )
-public class HeaderComponent {
+public class HeaderComponent extends AbsBaseComponent{
   private static final Random RANDOM = new Random();
-  private final WebDriver driver;
+
   private final By trainingMenu = By.xpath("//span[@title='Обучение']/..");
   private final By categoryItems = By.xpath("//p[contains(text(),'Все курсы')]/../div/a");
 
   public HeaderComponent(WebDriver driver) {
-    this.driver = driver;
+    super(driver);
   }
 
   public String selectRandomCategory() {
-    Waiter waiter = new Waiter(driver);
-
     if (!waiter.waitForElementVisible(trainingMenu)) {
       throw new RuntimeException("Меню 'Обучение' не найдено");
     }
