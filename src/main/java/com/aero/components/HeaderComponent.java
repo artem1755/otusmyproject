@@ -2,7 +2,6 @@ package com.aero.components;
 
 import com.aero.utils.StringUtils;
 import com.aero.utils.UiActions;
-import com.aero.waiters.Waiter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
