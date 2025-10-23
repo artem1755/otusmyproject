@@ -5,7 +5,6 @@ import static com.aero.utils.StringUtils.extractPath;
 import com.aero.annotations.Path;
 import com.aero.components.CourseItem;
 import com.aero.models.CourseDTO;
-import com.aero.waiters.Waiter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -42,7 +41,7 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
   }
 
   public List<String> getActiveCategories() {
-    if (!new Waiter(driver).waitForElementVisible(activeCategories)) {
+    if (!waiter.waitForElementVisible(activeCategories)) {
       throw new RuntimeException("Не дождались активных категорий");
     }
 
@@ -103,6 +102,6 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
   public void checkThatTheDesiredCategoryIsOpened(String categoryName) {
     List<String> titles = getActiveCategories();
     Assertions.assertEquals(1, titles.size());
-    Assertions.assertEquals(categoryName, titles.getFirst());
+    Assertions.assertEquals(categoryName, titles.get(0));
   }
 }

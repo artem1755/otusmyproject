@@ -5,27 +5,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class UiActions {
+  private Actions actions;
 
-  private UiActions() {
+  public UiActions(WebDriver driver) {
+    this.actions = new Actions(driver);
   }
 
-  public static void click(WebDriver driver, WebElement element) {
-    new Actions(driver)
-            .moveToElement(element)
-            .click()
-            .perform();
+  public void hoverOnElement(WebElement element) {
+    actions.moveToElement(element).perform();
   }
 
-  public static void doubleClick(WebDriver driver, WebElement element) {
-    new Actions(driver)
-            .moveToElement(element)
-            .doubleClick()
-            .perform();
-  }
-
-  public static void hover(WebDriver driver, WebElement element) {
-    new Actions(driver)
-            .moveToElement(element)
-            .perform();
+  public void clickOnElement(WebElement element) {
+    actions.moveToElement(element).click().perform();
   }
 }

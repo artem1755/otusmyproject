@@ -1,7 +1,6 @@
 package com.aero.components;
 
 import com.aero.utils.StringUtils;
-import com.aero.utils.UiActions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -30,21 +29,23 @@ public class HeaderComponent extends AbsBaseComponent{
     }
 
     WebElement training = driver.findElement(trainingMenu);
-    UiActions.hover(driver, training);
+    uiActions.hoverOnElement(training);
 
     if (!waiter.waitForCondition(ExpectedConditions.visibilityOfAllElementsLocatedBy(categoryItems))) {
       throw new RuntimeException("Категории в меню 'Обучение' не появились");
     }
 
     List<WebElement> categories = driver.findElements(categoryItems);
-    WebElement randomCategory = categories.get(RANDOM.nextInt(categories.size()));
+
+    Integer random = RANDOM.nextInt(categories.size() - 2);
+    WebElement randomCategory = categories.get(random);
     String selectedCategory = randomCategory.getText().trim();
 
     if (!waiter.waitForElementClickable(randomCategory)) {
       throw new RuntimeException("Категория '" + selectedCategory + "' не кликабельна");
     }
 
-    UiActions.click(driver, randomCategory);
+    uiActions.clickOnElement(randomCategory);
 
     return StringUtils.removeBrackets(selectedCategory);
   }

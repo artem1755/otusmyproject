@@ -25,11 +25,10 @@ public class CoursesPageTest {
   @Inject
   CourseDetailPage detailPage;
 
-
   /**
    * Аннотация HtmlFromJsoup используется для получения тестовых данных перед тестом.
    * По url и cssQuery получаем значение dom-элемента и пробрасываем это значение в тест при помощи механизма Junit ext.
-   * Это сделалось для того, чтобы тест не падал часто (т.к. меняются курмы на странице каталога курсов и зашитое в тест
+   * Это сделалось для того, чтобы тест не падал часто (т.к. меняются курсы на странице каталога курсов и зашитое в тест
    * значение названия курса становится не актуальным).
    */
   @Test
@@ -67,4 +66,5 @@ public class CoursesPageTest {
 
     coursesPage.checkThatTheDesiredCategoryIsOpened(expectedCategory);
   }
+
 }
