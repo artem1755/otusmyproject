@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.time.Duration;
+
 public class UiActions {
   private Actions actions;
 
@@ -12,10 +14,15 @@ public class UiActions {
   }
 
   public void hoverOnElement(WebElement element) {
-    actions.moveToElement(element).perform();
+    actions.moveToElement(element)
+            .build()
+            .perform();
   }
 
   public void clickOnElement(WebElement element) {
-    actions.moveToElement(element).click().perform();
+    actions.moveToElement(element)
+            .click()
+            .build()
+            .perform();
   }
 }

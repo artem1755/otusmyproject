@@ -5,7 +5,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.Random;
 
@@ -31,8 +30,8 @@ public class HeaderComponent extends AbsBaseComponent{
     WebElement training = driver.findElement(trainingMenu);
     uiActions.hoverOnElement(training);
 
-    if (!waiter.waitForCondition(ExpectedConditions.visibilityOfAllElementsLocatedBy(categoryItems))) {
-      throw new RuntimeException("Категории в меню 'Обучение' не появились");
+    if (!waiter.waitForElementVisible(categoryItems)) {
+      throw new RuntimeException("Категории в меню 'Обучение' не появились после hover");
     }
 
     List<WebElement> categories = driver.findElements(categoryItems);

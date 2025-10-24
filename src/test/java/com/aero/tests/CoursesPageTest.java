@@ -66,5 +66,4 @@ public class CoursesPageTest {
 
     coursesPage.checkThatTheDesiredCategoryIsOpened(expectedCategory);
   }
-
 }
