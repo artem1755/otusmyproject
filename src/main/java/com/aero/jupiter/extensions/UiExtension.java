@@ -23,7 +23,8 @@ public class UiExtension implements BeforeEachCallback, AfterEachCallback {
     driver = new EventFiringDecorator(new HighlightListener()).decorate(baseDriver);
 
     injector = Guice.createInjector(
-            new GuicePagesModule(driver)
+            new GuicePagesModule(driver),
+            new GuiceComponentsModule(driver)
     );
 
     injector.injectMembers(context.getTestInstance().get());

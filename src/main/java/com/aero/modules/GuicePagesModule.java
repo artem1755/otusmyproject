@@ -35,12 +35,6 @@ public class GuicePagesModule extends AbstractModule {
 
   @Provides
   @Singleton
-  public HeaderComponent getHeaderComponent() {
-    return new HeaderComponent(driver);
-  }
-
-  @Provides
-  @Singleton
   public CoursesPage getCoursesPage() {
     return new CoursesPage(driver);
   }
