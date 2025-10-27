@@ -6,10 +6,10 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import org.openqa.selenium.WebDriver;
 
-public class HeaderGuiceModul extends AbstractModule {
-  private final WebDriver driver;
+public class GuiceComponentsModule extends AbstractModule {
+  private WebDriver driver;
 
-  public HeaderGuiceModul(WebDriver driver) {
+  public GuiceComponentsModule(WebDriver driver) {
     this.driver = driver;
   }
 

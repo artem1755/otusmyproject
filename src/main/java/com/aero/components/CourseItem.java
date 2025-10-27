@@ -15,8 +15,8 @@ import java.util.Locale;
 
 @SuppressFBWarnings(
         value = {
-                "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
-                "EI_EXPOSE_REP2"
+          "THROWS_METHOD_THROWS_RUNTIMEEXCEPTION",
+          "EI_EXPOSE_REP2"
         },
         justification = "RuntimeException выбрасывается намеренно, WebElement хранится безопасно для тестов"
 )
@@ -26,6 +26,7 @@ public class CourseItem {
   private final By titleLocator = By.cssSelector("h6 > div");
   private final By date = By.xpath("div[2]/div/div");
   Waiter waiter;
+
   public CourseItem(WebElement root, WebDriver driver) {
     this.driver = driver;
     this.root = root;

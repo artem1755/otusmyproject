@@ -4,28 +4,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.time.Duration;
+
 public class UiActions {
+  private Actions actions;
 
-  private UiActions() {
+  public UiActions(WebDriver driver) {
+    this.actions = new Actions(driver);
   }
 
-  public static void click(WebDriver driver, WebElement element) {
-    new Actions(driver)
-            .moveToElement(element)
+  public void hoverOnElement(WebElement element) {
+    actions.moveToElement(element)
+            .build()
+            .perform();
+  }
+
+  public void clickOnElement(WebElement element) {
+    actions.moveToElement(element)
             .click()
-            .perform();
-  }
-
-  public static void doubleClick(WebDriver driver, WebElement element) {
-    new Actions(driver)
-            .moveToElement(element)
-            .doubleClick()
-            .perform();
-  }
-
-  public static void hover(WebDriver driver, WebElement element) {
-    new Actions(driver)
-            .moveToElement(element)
+            .build()
             .perform();
   }
 }

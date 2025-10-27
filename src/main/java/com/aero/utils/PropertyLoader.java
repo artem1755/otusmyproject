@@ -1,7 +1,6 @@
 package com.aero.utils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
