@@ -5,14 +5,17 @@ import static com.aero.utils.StringUtils.extractPath;
 import com.aero.annotations.Path;
 import com.aero.components.CourseItem;
 import com.aero.models.CourseDTO;
+import com.aero.scoped.GuiceScoped;
+import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @SuppressFBWarnings(
@@ -27,14 +30,14 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
 
   By activeCategories = By.xpath("//span[contains(text(),'Свернуть')]/..//div[@value='true']//label");
 
-  public CoursesPage(WebDriver driver) {
-    super(driver);
+  @Inject
+  public CoursesPage(GuiceScoped guiceScoped) {
+    super(guiceScoped);
   }
-
 
   public CourseItem getCourseItemsByTitle(String title) {
     return coursesItems.stream()
-            .map(elem -> new CourseItem(elem, driver))
+            .map(elem -> new CourseItem(elem, guiceScoped))
             .filter(item -> item.getTitle().equals(title))
             .findFirst()
             .orElseThrow(() -> new RuntimeException("Курс с названием " + title + " не найден"));
@@ -53,7 +56,7 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
   public List<CourseItem> getAllCourses() {
     waiter.waitForElementVisible(By.xpath("//section[@class='sc-o4bnil-0 riKpM']/div[2]//a"));
     return coursesItems.stream()
-            .map(elem -> new CourseItem(elem, driver))
+            .map(elem -> new CourseItem(elem, guiceScoped))
             .collect(Collectors.toList());
   }
 
@@ -98,6 +101,26 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
             )
             .collect(Collectors.toList());
   }
+
+  public List<CourseDTO> getAllCoursesThatEqualsToDateOrLater(String date) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM, yyyy", new Locale("ru"));
+    LocalDate formattedDate = LocalDate.parse(date, formatter);
+
+    List<CourseItem> allCourses = getAllCourses();
+
+    return allCourses.stream()
+            .filter(c -> !c.getStartDateString().equals("О дате старта будет объявлено позже"))
+            .filter(courseItem -> !courseItem.getStartDate().isBefore(formattedDate))
+            .map(elem -> new CourseDTO(
+                            elem.getTitle(),
+                            extractPath(elem.getHref()),
+                            elem.getStartDate()
+                    )
+            )
+            .collect(Collectors.toList());
+  }
+
+
 
   public void checkThatTheDesiredCategoryIsOpened(String categoryName) {
     List<String> titles = getActiveCategories();

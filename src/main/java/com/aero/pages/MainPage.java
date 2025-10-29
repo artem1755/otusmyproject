@@ -2,8 +2,8 @@ package com.aero.pages;
 
 import com.aero.annotations.Path;
 import com.aero.components.HeaderComponent;
+import com.aero.scoped.GuiceScoped;
 import com.google.inject.Inject;
-import org.openqa.selenium.WebDriver;
 
 @Path("/")
 public class MainPage extends AbsBasePage<MainPage> {
@@ -11,8 +11,9 @@ public class MainPage extends AbsBasePage<MainPage> {
   @Inject
   HeaderComponent headerComponent;
 
-  public MainPage(WebDriver driver, HeaderComponent headerComponent) {
-    super(driver);
+  @Inject
+  public MainPage(GuiceScoped guiceScoped, HeaderComponent headerComponent) {
+    super(guiceScoped);
     this.headerComponent = headerComponent;
   }
 

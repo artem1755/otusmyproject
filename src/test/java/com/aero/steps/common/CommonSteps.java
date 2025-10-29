@@ -1,15 +1,15 @@
 package com.aero.steps.common;
 
-import com.aero.pages.MainPage;
+import com.aero.scoped.GuiceScoped;
 import com.google.inject.Inject;
 import io.cucumber.java.ru.Пусть;
 
 public class CommonSteps {
   @Inject
-  MainPage mainPage;
+  private GuiceScoped guiceScoped;
 
   @Пусть("Я открываю браузер {string}")
   public void openPage(String browserName) {
-    mainPage.open();
+    guiceScoped.getDriver().get("https://otus.ru/");
   }
 }

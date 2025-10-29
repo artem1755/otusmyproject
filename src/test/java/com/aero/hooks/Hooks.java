@@ -1,13 +1,19 @@
 package com.aero.hooks;
 
-//import com.aero.factory.WebDriverFactory;
-//import io.cucumber.java.Before;
+import com.aero.scoped.GuiceScoped;
+import com.google.inject.Inject;
+import io.cucumber.java.After;
 
 public class Hooks {
 
-//  @Before
-//  public void init(){
-//    WebDriverFactory factory = new WebDriverFactory();
-//
-//  }
+  @Inject
+  private GuiceScoped guiceScoped;
+
+  @After()
+  public void afterScenario() {
+    if (guiceScoped.driver != null) {
+      guiceScoped.driver.close();
+      guiceScoped.driver.quit();
+    }
+  }
 }

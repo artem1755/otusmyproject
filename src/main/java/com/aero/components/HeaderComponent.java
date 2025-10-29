@@ -1,6 +1,8 @@
 package com.aero.components;
 
+import com.aero.scoped.GuiceScoped;
 import com.aero.utils.StringUtils;
+import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,8 +20,9 @@ public class HeaderComponent extends AbsBaseComponent{
   private final By trainingMenu = By.xpath("//span[@title='Обучение']/..");
   private final By categoryItems = By.xpath("//p[contains(text(),'Все курсы')]/../div/a");
 
-  public HeaderComponent(WebDriver driver) {
-    super(driver);
+  @Inject
+  public HeaderComponent(GuiceScoped guiceScoped) {
+    super(guiceScoped);
   }
 
   public String selectRandomCategory() {

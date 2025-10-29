@@ -3,13 +3,14 @@ package com.aero.pages;
 import static com.aero.utils.StringUtils.formatToDayMonth;
 
 import com.aero.models.CourseDTO;
+import com.aero.scoped.GuiceScoped;
 import com.aero.utils.PropertyLoader;
+import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import java.util.List;
@@ -20,12 +21,14 @@ public class CourseDetailPage extends AbsBasePage<CourseDetailPage> {
   @FindBy(xpath = "//h1")
   private WebElement element;
 
-  public CourseDetailPage(WebDriver driver) {
-    super(driver);
+  @Inject
+  public CourseDetailPage(GuiceScoped guiceScoped) {
+    super(guiceScoped);
   }
 
   public void checkThatPageIsCorrect(String title) {
     if (waiter.waitForElementClickable(element)) {
+
       Assertions.assertEquals(title, element.getText());
     }
   }

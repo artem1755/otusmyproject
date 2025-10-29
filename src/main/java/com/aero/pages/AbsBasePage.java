@@ -2,6 +2,7 @@ package com.aero.pages;
 
 import com.aero.annotations.Path;
 import com.aero.common.AbsCommon;
+import com.aero.scoped.GuiceScoped;
 import com.aero.utils.PropertyLoader;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.openqa.selenium.WebDriver;
@@ -11,8 +12,8 @@ import org.openqa.selenium.WebDriver;
         justification = "Метод выбрасывает RuntimeException намеренно, в тестах безопасно"
 )
 public abstract class AbsBasePage<T extends AbsBasePage<T>> extends AbsCommon {
-  public AbsBasePage(WebDriver driver) {
-    super(driver);
+  public AbsBasePage(GuiceScoped guiceScoped) {
+    super(guiceScoped);
   }
 
   public T openPage() {
