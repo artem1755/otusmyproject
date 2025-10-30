@@ -26,4 +26,9 @@ public class CourseDetailPageSteps {
   public void courseTitleShouldBeEqualsTo(String title) {
     courseDetailPage.checkThatPageIsCorrect(title);
   }
+
+  @Тогда("названия и даты стартов самых раних и поздних курсов должны совпадать")
+  public void titlesAndStartDatesShouldBeEquals() {
+    courseDetailPage.verifyCourseDataWithJsoup(testContext.getCourses());
+  }
 }

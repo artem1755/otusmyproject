@@ -34,7 +34,7 @@ public class MainPageSteps {
 
   @Пусть("происходит наведение на блок с курсами и клик на рандомный курс")
   public void hoverOnTheRandomCourseAndClick() {
-    mainPage.openPage();
+//    mainPage.openPage();
     String course = headerComponent.selectRandomCategory();
     testContext.setSelectedCourse(course);
   }

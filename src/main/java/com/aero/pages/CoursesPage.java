@@ -8,14 +8,21 @@ import com.aero.models.CourseDTO;
 import com.aero.scoped.GuiceScoped;
 import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @SuppressFBWarnings(
@@ -27,6 +34,8 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
 
   @FindBy(xpath = "//section[@class='sc-o4bnil-0 riKpM']/div[2]//a")
   List<WebElement> coursesItems;
+
+
 
   By activeCategories = By.xpath("//span[contains(text(),'Свернуть')]/..//div[@value='true']//label");
 
@@ -120,11 +129,41 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
             .collect(Collectors.toList());
   }
 
-
-
   public void checkThatTheDesiredCategoryIsOpened(String categoryName) {
     List<String> titles = getActiveCategories();
     Assertions.assertEquals(1, titles.size());
     Assertions.assertEquals(categoryName, titles.get(0));
+  }
+
+  public Map<String, String> checkTheCheapestAndMostExpensiveCourses() {
+    List<String> hrefs = getAllCourses().stream()
+            .map(x -> x.getHref())
+            .collect(Collectors.toList());
+
+
+    Map<String, String> courses = new HashMap<>();
+
+    for (String href : hrefs) {
+      try {
+        Document doc = Jsoup.connect(href).get();
+
+        Element titleElement = doc.selectFirst("main h3");
+        Element priceElement = doc.selectFirst(".sc-153sikp-11.gztHyx");
+
+        if ((titleElement == null) || (priceElement == null)) {
+          continue;
+        }
+        String courseTitle = titleElement != null ? titleElement.text() : "Название не найдено";
+        String coursePrice = priceElement != null ? priceElement.text() : "Цена не найдена";
+
+        courses.put(courseTitle, coursePrice);
+
+      } catch (IOException e) {
+        System.err.println("Ошибка при загрузке страницы: " + href);
+        e.printStackTrace();
+      }
+    }
+
+    return courses;
   }
 }

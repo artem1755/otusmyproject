@@ -53,4 +53,11 @@ public final class StringUtils {
       throw new IllegalArgumentException("Некорректный URL: " + url, e);
     }
   }
+
+  public static int extractPrice(String text) {
+    if (text == null) return 0; // если null
+    String digits = text.replaceAll("[^0-9]", "");
+    if (digits.isEmpty()) return 0; // если цифр нет
+    return Integer.parseInt(digits);
+  }
 }

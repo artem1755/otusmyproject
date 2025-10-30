@@ -1,11 +1,14 @@
 package com.aero.context;
 
+import com.aero.models.CourseDTO;
 import io.cucumber.guice.ScenarioScoped;
+import java.util.List;
 
-//@Singleton
 @ScenarioScoped
 public class TestContext {
   private String selectedCourse;
+
+  private List<CourseDTO> courses;
 
   public String getSelectedCourse() {
     return selectedCourse;
@@ -13,5 +16,13 @@ public class TestContext {
 
   public void setSelectedCourse(String selectedCourse) {
     this.selectedCourse = selectedCourse;
+  }
+
+  public List<CourseDTO> getCourses() {
+    return courses;
+  }
+
+  public void setCourses(List<CourseDTO> courses) {
+    this.courses = courses;
   }
 }

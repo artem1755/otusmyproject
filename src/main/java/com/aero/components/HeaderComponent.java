@@ -7,6 +7,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import java.util.List;
 import java.util.Random;
 
@@ -16,6 +17,9 @@ import java.util.Random;
 )
 public class HeaderComponent extends AbsBaseComponent{
   private static final Random RANDOM = new Random();
+
+  @FindBy(xpath = "//a[text()='Подготовительные курсы']")
+  private WebElement preparingCourses;
 
   private final By trainingMenu = By.xpath("//span[@title='Обучение']/..");
   private final By categoryItems = By.xpath("//p[contains(text(),'Все курсы')]/../div/a");
@@ -50,6 +54,21 @@ public class HeaderComponent extends AbsBaseComponent{
     uiActions.clickOnElement(randomCategory);
 
     return StringUtils.removeBrackets(selectedCategory);
+  }
+
+  public void clickOnThePreparatoryCoursesItem() {
+    if (!waiter.waitForElementVisible(trainingMenu)) {
+      throw new RuntimeException("Меню 'Обучение' не найдено");
+    }
+
+    WebElement training = driver.findElement(trainingMenu);
+    uiActions.hoverOnElement(training);
+    uiActions.clickOnElement(preparingCourses);
+    try {
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
   }
 
 }
