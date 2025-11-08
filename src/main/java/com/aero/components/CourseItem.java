@@ -25,7 +25,7 @@ public class CourseItem {
   private final WebElement root;
   private final By titleLocator = By.cssSelector("h6 > div");
   private final By date = By.xpath("div[2]/div/div");
-  Waiter waiter;
+  private final Waiter waiter;
 
   public CourseItem(WebElement root, WebDriver driver) {
     this.driver = driver;
@@ -36,7 +36,6 @@ public class CourseItem {
   public String getTitle() {
     return root.findElement(titleLocator).getText();
   }
-
 
   public CourseDetailPage gotoDetailPage() {
     if (waiter.waitForElementClickable(root.findElement(titleLocator))) {

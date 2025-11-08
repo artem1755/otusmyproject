@@ -25,15 +25,12 @@ public class PropertyLoader {
     }
   }
 
-  private PropertyLoader() {
-  }
-
   public static String getBaseUrl() {
-    return PROPERTIES.getProperty("base.url");
+    return System.getProperty("base.url", PROPERTIES.getProperty("base.url"));
   }
 
   public static int getBaseTimeout() {
-    String timeout = PROPERTIES.getProperty("base.timeout");
+    String timeout = System.getProperty("base.timeout", PROPERTIES.getProperty("base.timeout"));
     if (timeout == null) {
       throw new RuntimeException("base.timeout не задан в config.properties");
     }
@@ -41,6 +38,6 @@ public class PropertyLoader {
   }
 
   public static String getBrowserName() {
-    return PROPERTIES.getProperty("browser.name");
+    return System.getProperty("browser.name", PROPERTIES.getProperty("browser.name"));
   }
 }
