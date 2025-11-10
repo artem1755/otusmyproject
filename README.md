@@ -59,6 +59,11 @@ cd otusmyproject
 mvn clean test
 ```
 
+#### Либо для сборки с параметрами:
+```
+mvn clean test -Dbase.url=https://otus.ru -Dbrowser.name=chrome
+```
+
 ## Настройки окружения
 
 Все настройки проекта находятся в файле config.properties.
