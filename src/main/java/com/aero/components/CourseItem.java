@@ -25,7 +25,7 @@ public class CourseItem extends AbsBaseComponent {
   private final WebElement root;
   private final By titleLocator = By.cssSelector("h6 > div");
   private final By date = By.xpath("div[2]/div/div");
-  Waiter waiter;
+  private final Waiter waiter;
 
   @Inject
   public CourseItem(WebElement root, GuiceScoped guiceScoped) {
@@ -37,7 +37,6 @@ public class CourseItem extends AbsBaseComponent {
   public String getTitle() {
     return root.findElement(titleLocator).getText();
   }
-
 
   public CourseDetailPage gotoDetailPage() {
     if (waiter.waitForElementClickable(root.findElement(titleLocator))) {

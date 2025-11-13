@@ -12,10 +12,6 @@ import java.util.Locale;
 )
 public final class StringUtils {
 
-  private StringUtils() {
-  }
-
-
   public static String removeBrackets(String text) {
     if (text == null) {
       throw new RuntimeException("Входной параметр null");

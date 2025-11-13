@@ -51,7 +51,7 @@ public class HeaderComponent extends AbsBaseComponent{
       throw new RuntimeException("Категория '" + selectedCategory + "' не кликабельна");
     }
 
-    uiActions.clickOnElement(randomCategory);
+    randomCategory.click();
 
     return StringUtils.removeBrackets(selectedCategory);
   }
