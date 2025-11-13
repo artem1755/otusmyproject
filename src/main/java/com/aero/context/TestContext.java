@@ -2,6 +2,7 @@ package com.aero.context;
 
 import com.aero.models.CourseDTO;
 import io.cucumber.guice.ScenarioScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 @ScenarioScoped
@@ -19,10 +20,10 @@ public class TestContext {
   }
 
   public List<CourseDTO> getCourses() {
-    return courses;
+    return List.copyOf(courses);
   }
 
   public void setCourses(List<CourseDTO> courses) {
-    this.courses = courses;
+    this.courses = courses != null ? new ArrayList<>(courses) : new ArrayList<>();
   }
 }

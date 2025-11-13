@@ -10,7 +10,6 @@ import com.aero.scoped.GuiceScoped;
 import com.google.inject.Inject;
 import io.cucumber.java.ru.Пусть;
 import io.cucumber.java.ru.Тогда;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;

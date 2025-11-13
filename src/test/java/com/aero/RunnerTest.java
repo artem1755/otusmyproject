@@ -8,7 +8,7 @@ import org.junit.platform.suite.api.*;
 @Suite
 @IncludeEngines("cucumber")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.aero.steps,com.aero.hooks")
-@IncludeTags({"courses_block"})
+@IncludeTags({"blocksec"})
 @SelectClasspathResource("otus")
 @Cucumber
 public class RunnerTest {

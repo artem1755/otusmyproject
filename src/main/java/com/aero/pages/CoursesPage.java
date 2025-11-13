@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,8 +33,6 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
 
   @FindBy(xpath = "//section[@class='sc-o4bnil-0 riKpM']/div[2]//a")
   List<WebElement> coursesItems;
-
-
 
   By activeCategories = By.xpath("//span[contains(text(),'Свернуть')]/..//div[@value='true']//label");
 
@@ -153,8 +150,8 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
         if ((titleElement == null) || (priceElement == null)) {
           continue;
         }
-        String courseTitle = titleElement != null ? titleElement.text() : "Название не найдено";
-        String coursePrice = priceElement != null ? priceElement.text() : "Цена не найдена";
+        String courseTitle = titleElement.text();
+        String coursePrice = priceElement.text();
 
         courses.put(courseTitle, coursePrice);
 

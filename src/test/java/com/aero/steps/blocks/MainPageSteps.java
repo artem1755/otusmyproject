@@ -2,7 +2,6 @@ package com.aero.steps.blocks;
 
 import com.aero.components.HeaderComponent;
 import com.aero.context.TestContext;
-import com.aero.pages.CourseDetailPage;
 import com.aero.pages.CoursesPage;
 import com.aero.pages.MainPage;
 import com.aero.scoped.GuiceScoped;
@@ -34,7 +33,6 @@ public class MainPageSteps {
 
   @Пусть("происходит наведение на блок с курсами и клик на рандомный курс")
   public void hoverOnTheRandomCourseAndClick() {
-//    mainPage.openPage();
     String course = headerComponent.selectRandomCategory();
     testContext.setSelectedCourse(course);
   }
